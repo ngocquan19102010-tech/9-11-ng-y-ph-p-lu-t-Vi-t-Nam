@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trắc Nghiệm Tìm Hiểu Ngày Pháp Luật Việt Nam</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Be Vietnam Pro -->
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        vnred: '#DA251D',
+                        vnyellow: '#FFCD00',
+                        lawblue: '#1E3A8A',
+                        lawgold: '#D97706',
+                    },
+                    fontFamily: {
+                        vietnam: ['Be Vietnam Pro', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 50%, #1E1B4B 100%);
+            min-height: 100vh;
+        }
+
+        /* Glassmorphism card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.1);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D97706;
+            border-radius: 4px;
+        }
+
+        /* Pulse Animations */
+        @keyframes pulse-slow {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .animate-pulse-slow {
+            animation: pulse-slow 3s infinite ease-in-out;
+        }
+
+        /* Ripple effect on click */
+        .btn-ripple {
+            position: relative;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="text-slate-800 flex items-center justify-center p-3 sm:p-6">
+
+    <!-- Audio Effects Generator using Web Audio API -->
+    <script>
+        class SoundEffects {
+            constructor() {
+                this.ctx = null;
+            }
+
+            init() {
+                if (!this.ctx) {
+                    this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+            }
+
+            playCorrect() {
+                this.init();
+                if (!this.ctx) return;
+                const now = this.ctx.currentTime;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(523.25, now); // C5
+                osc.frequency.setValueAtTime(659.25, now + 0.1); // E5
+                osc.frequency.setValueAtTime(783.99, now + 0.2); // G5
+                osc.frequency.setValueAtTime(1046.50, now + 0.3); // C6
+                
+                gain.gain.setValueAtTime(0.3, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.6);
+
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.6);
+            }
+
+            playIncorrect() {
+                this.init();
+                if (!this.ctx) return;
+                const now = this.ctx.currentTime;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(180, now);
+                osc.frequency.setValueAtTime(130, now + 0.15);
+                
+                gain.gain.setValueAtTime(0.3, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.4);
+            }
+
+            playClick() {
+                this.init();
+                if (!this.ctx) return;
+                const now = this.ctx.currentTime;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(400, now);
+                osc.frequency.exponentialRampToValueAtTime(800, now + 0.05);
+
+                gain.gain.setValueAtTime(0.1, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.05);
+
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.05);
+            }
+
+            playFinish() {
+                this.init();
+                if (!this.ctx) return;
+                const notes = [440, 554.37, 659.25, 880];
+                notes.forEach((freq, index) => {
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    const now = this.ctx.currentTime + index * 0.12;
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, now);
+                    gain.gain.setValueAtTime(0.25, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.4);
+                });
+            }
+        }
+
+        const soundFX = new SoundEffects();
+    </script>
+
+    <!-- App Container -->
+    <div class="w-full max-w-4xl min-h-[600px] glass-card rounded-3xl overflow-hidden relative flex flex-col justify-between my-auto transition-all duration-300">
+
+        <!-- Header / Decorative Top Banner -->
+        <div class="bg-gradient-to-r from-vnred via-red-700 to-lawblue p-4 sm:p-5 text-white flex items-center justify-between shadow-md">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-vnyellow flex items-center justify-center text-vnred shadow-lg font-black text-xl">
+                    <i class="fa-solid font-bold fa-scale-balanced"></i>
+                </div>
+                <div>
+                    <h1 class="text-base sm:text-lg font-bold tracking-wide uppercase text-vnyellow">Sống và làm việc theo Hiến pháp và Pháp luật</h1>
+                    <p class="text-xs text-slate-200 hidden sm:block">Ngày Pháp Luật Việt Nam - 9 tháng 11</p>
+                </div>
+            </div>
+            <button id="soundToggleBtn" onclick="toggleSound()" class="bg-white/20 hover:bg-white/30 text-white p-2 px-3 rounded-xl backdrop-blur-md transition text-xs font-semibold flex items-center gap-2">
+                <i id="soundIcon" class="fa-solid fa-volume-high"></i>
+                <span id="soundStatus" class="hidden sm:inline">Âm thanh</span>
+            </button>
+        </div>
+
+        <!-- SCREEN 1: START SCREEN -->
+        <div id="startScreen" class="p-6 sm:p-10 flex flex-col items-center justify-center text-center flex-1 my-auto">
+            <!-- Emblems & Icons -->
+            <div class="relative mb-6">
+                <div class="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-gradient-to-tr from-vnred to-amber-500 flex items-center justify-center text-vnyellow shadow-2xl animate-pulse-slow border-4 border-vnyellow">
+                    <i class="fa-solid fa-scale-balanced text-5xl sm:text-6xl"></i>
+                </div>
+                <div class="absolute -bottom-2 -right-2 bg-lawblue text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg border-2 border-white">
+                    <i class="fa-solid fa-star text-vnyellow text-lg"></i>
+                </div>
+            </div>
+
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-lawblue mb-3 leading-tight">
+                Hội Thi Trắc Nghiệm Tìm Hiểu<br>
+                <span class="text-vnred">NGÀY PHÁP LUẬT VIỆT NAM</span>
+            </h2>
+            <p class="text-slate-600 max-w-lg mb-8 text-sm sm:text-base leading-relaxed">
+                Chào mừng các bạn học sinh đến với bộ câu hỏi tìm hiểu về ý nghĩa Ngày Pháp luật Việt Nam 09/11, nâng cao ý thức chấp hành pháp luật và quy tắc ứng xử học đường!
+            </p>
+
+            <!-- Quick Rules Stats -->
+            <div class="grid grid-cols-3 gap-3 sm:gap-6 w-full max-w-md mb-8">
+                <div class="bg-blue-50 border border-blue-100 p-3 rounded-2xl text-center">
+                    <div class="text-lawblue font-bold text-xl sm:text-2xl">20</div>
+                    <div class="text-xs text-slate-500 font-medium">Câu hỏi</div>
+                </div>
+                <div class="bg-amber-50 border border-amber-100 p-3 rounded-2xl text-center">
+                    <div class="text-lawgold font-bold text-xl sm:text-2xl">20s</div>
+                    <div class="text-xs text-slate-500 font-medium">Mỗi câu</div>
+                </div>
+                <div class="bg-red-50 border border-red-100 p-3 rounded-2xl text-center">
+                    <div class="text-vnred font-bold text-xl sm:text-2xl">100</div>
+                    <div class="text-xs text-slate-500 font-medium">Thang điểm</div>
+                </div>
+            </div>
+
+            <button onclick="startGame()" class="btn-ripple bg-gradient-to-r from-vnred to-red-600 hover:from-red-600 hover:to-vnred text-white font-bold text-lg px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-200 flex items-center gap-3">
+                <i class="fa-solid fa-play"></i> BẮT ĐẦU THI NGAY
+            </button>
+        </div>
+
+        <!-- SCREEN 2: GAMEPLAY SCREEN -->
+        <div id="gameScreen" class="p-4 sm:p-8 flex-1 flex-col justify-between hidden">
+            <!-- Game Header (Timer, Progress Bar, Score) -->
+            <div>
+                <div class="flex justify-between items-center mb-3">
+                    <!-- Question Counter -->
+                    <span class="text-xs sm:text-sm font-bold text-lawblue bg-blue-100 px-3 py-1.5 rounded-full border border-blue-200">
+                        <i class="fa-solid fa-circle-question mr-1"></i> Câu <span id="currentQuestionNum">1</span>/20
+                    </span>
+
+                    <!-- Countdown Timer -->
+                    <div class="flex items-center gap-2 bg-amber-100 px-4 py-1.5 rounded-full border border-amber-200">
+                        <i class="fa-solid fa-clock text-amber-600 animate-pulse"></i>
+                        <span id="timerDisplay" class="font-bold text-amber-700 text-sm sm:text-base">20s</span>
+                    </div>
+
+                    <!-- Current Score -->
+                    <span class="text-xs sm:text-sm font-bold text-emerald-700 bg-emerald-100 px-3 py-1.5 rounded-full border border-emerald-200">
+                        <i class="fa-solid fa-trophy mr-1"></i> <span id="currentScoreDisplay">0</span> Điểm
+                    </span>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden mb-6">
+                    <div id="progressBar" class="bg-gradient-to-r from-vnred to-vnyellow h-full w-0 transition-all duration-300"></div>
+                </div>
+
+                <!-- Question Category/Section Tag -->
+                <div id="sectionTag" class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+                    Phần I: Tìm hiểu về Ngày Pháp Luật Việt Nam
+                </div>
+
+                <!-- Question Text -->
+                <h3 id="questionText" class="text-base sm:text-xl font-bold text-slate-800 mb-6 leading-snug min-h-[60px]">
+                    Nội dung câu hỏi sẽ hiển thị ở đây...
+                </h3>
+            </div>
+
+            <!-- Answer Options -->
+            <div id="optionsContainer" class="grid grid-cols-1 gap-3 sm:gap-4 mb-6">
+                <!-- Buttons dynamically populated -->
+            </div>
+
+            <!-- Feedback / Explanation Footer -->
+            <div class="min-h-[70px] flex items-center justify-between pt-2 border-t border-slate-100">
+                <div id="feedbackContainer" class="hidden flex-1 mr-4">
+                    <div id="feedbackBox" class="p-3 rounded-xl text-xs sm:text-sm font-medium flex items-center gap-2">
+                        <i id="feedbackIcon" class="text-lg"></i>
+                        <span id="feedbackText"></span>
+                    </div>
+                </div>
+                
+                <button id="nextBtn" onclick="nextQuestion()" class="hidden ml-auto bg-lawblue hover:bg-blue-900 text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:scale-105 active:scale-95 transition flex items-center gap-2 text-sm sm:text-base">
+                    <span>Câu Tiếp Theo</span> <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- SCREEN 3: RESULT SCREEN -->
+        <div id="resultScreen" class="p-6 sm:p-10 flex flex-col items-center justify-center text-center flex-1 hidden">
+            <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-tr from-yellow-400 to-amber-500 flex items-center justify-center text-white shadow-xl mb-4">
+                <i id="resultIcon" class="fa-solid fa-trophy text-4xl sm:text-5xl"></i>
+            </div>
+
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-lawblue mb-1">KẾT QUẢ CUỘC THI</h2>
+            <p id="rankBadge" class="inline-block font-bold text-sm sm:text-base px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-800 mb-4 border border-emerald-200">
+                Xuất Sắc
+            </p>
+
+            <div class="text-4xl sm:text-6xl font-black text-vnred mb-6">
+                <span id="finalScore">0</span><span class="text-lg sm:text-2xl text-slate-400 font-normal">/100 Điểm</span>
+            </div>
+
+            <!-- Stat Details -->
+            <div class="grid grid-cols-3 gap-3 sm:gap-4 w-full max-w-md mb-6">
+                <div class="bg-emerald-50 border border-emerald-200 p-3 rounded-2xl">
+                    <div class="text-emerald-600 font-bold text-lg sm:text-xl" id="correctCount">0</div>
+                    <div class="text-xs text-slate-500 font-medium">Đúng</div>
+                </div>
+                <div class="bg-red-50 border border-red-200 p-3 rounded-2xl">
+                    <div class="text-red-600 font-bold text-lg sm:text-xl" id="wrongCount">0</div>
+                    <div class="text-xs text-slate-500 font-medium">Sai</div>
+                </div>
+                <div class="bg-blue-50 border border-blue-200 p-3 rounded-2xl">
+                    <div class="text-lawblue font-bold text-lg sm:text-xl" id="accuracyPercentage">0%</div>
+                    <div class="text-xs text-slate-500 font-medium">Chính xác</div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-3 w-full max-w-md">
+                <button onclick="toggleReviewModal(true)" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3.5 px-4 rounded-xl transition flex items-center justify-center gap-2 border border-slate-300">
+                    <i class="fa-solid fa-list-check"></i> Xem lại đáp án
+                </button>
+                <button onclick="startGame()" class="flex-1 bg-vnred hover:bg-red-700 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-rotate-right"></i> Chơi lại
+                </button>
+            </div>
+        </div>
+
+        <!-- Footer Info -->
+        <div class="bg-slate-100 px-6 py-2.5 text-center text-xs text-slate-500 border-t border-slate-200">
+            Hưởng ứng Ngày Pháp luật Nước Cộng hòa Xã hội Chủ nghĩa Việt Nam (09/11)
+        </div>
+    </div>
+
+    <!-- MODAL: REVIEW ANSWERS -->
+    <div id="reviewModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl w-full max-w-3xl max-h-[85vh] flex flex-col shadow-2xl overflow-hidden">
+            <div class="bg-lawblue text-white p-4 px-6 flex justify-between items-center">
+                <h3 class="font-bold text-lg flex items-center gap-2">
+                    <i class="fa-solid fa-list-check text-vnyellow"></i> Chi Tiết Đáp Án & Lời Giải
+                </h3>
+                <button onclick="toggleReviewModal(false)" class="text-slate-300 hover:text-white text-xl p-1">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            
+            <div id="reviewContent" class="p-4 sm:p-6 overflow-y-auto space-y-4 flex-1">
+                <!-- Dynamically filled review items -->
+            </div>
+
+            <div class="p-4 bg-slate-50 border-t border-slate-200 flex justify-end">
+                <button onclick="toggleReviewModal(false)" class="bg-lawblue text-white font-bold px-6 py-2.5 rounded-xl hover:bg-blue-900 transition">
+                    Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Data Questions Array (20 items provided)
+        const quizData = [
+            {
+                section: "Phần I. Tìm hiểu về Ngày Pháp luật Việt Nam",
+                question: "Câu 1. Ngày Pháp luật Việt Nam được tổ chức vào ngày nào hằng năm?",
+                options: [
+                    "A. Ngày 2/9",
+                    "B. Ngày 20/11",
+                    "C. Ngày 9/11",
+                    "D. Ngày 22/12"
+                ],
+                correct: 2, // Index 2 -> C
+                explain: "Ngày Pháp luật Việt Nam được tổ chức vào ngày 09/11 hằng năm."
+            },
+            {
+                section: "Phần I. Tìm hiểu về Ngày Pháp luật Việt Nam",
+                question: "Câu 2. Ngày Pháp luật Việt Nam được tổ chức nhằm mục đích gì?",
+                options: [
+                    "A. Tôn vinh những người làm trong ngành giáo dục.",
+                    "B. Tôn vinh Hiến pháp, pháp luật và nâng cao ý thức chấp hành pháp luật.",
+                    "C. Kỷ niệm ngày thành lập Quân đội nhân dân Việt Nam.",
+                    "D. Tổ chức các hoạt động vui chơi giải trí."
+                ],
+                correct: 1, // Index 1 -> B
+                explain: "Mục đích là tôn vinh Hiến pháp, pháp luật và giáo dục ý thức thượng tôn pháp luật cho mọi người."
+            },
+            {
+                section: "Phần I. Tìm hiểu về Ngày Pháp luật Việt Nam",
+                question: "Câu 3. Ngày 9/11 được lựa chọn làm Ngày Pháp luật Việt Nam vì đây là ngày gắn với sự kiện nào?",
+                options: [
+                    "A. Quốc hội khóa I được thành lập.",
+                    "B. Hiến pháp năm 1946 của nước Việt Nam Dân chủ Cộng hòa được ban hành.",
+                    "C. Việt Nam gia nhập ASEAN.",
+                    "D. Ngày thành lập Đảng Cộng sản Việt Nam."
+                ],
+                correct: 1, // Index 1 -> B
+                explain: "Ngày 9/11/1946 là ngày thông qua bản Hiến pháp đầu tiên của nước Việt Nam Dân chủ Cộng hòa."
+            },
+            {
+                section: "Phần I. Tìm hiểu về Ngày Pháp luật Việt Nam",
+                question: "Câu 4. Ngày Pháp luật Việt Nam chính thức được quy định tại văn bản nào?",
+                options: [
+                    "A. Luật Giáo dục.",
+                    "B. Bộ luật Lao động.",
+                    "C. Luật Phổ biến, giáo dục pháp luật.",
+                    "D. Luật Thanh niên."
+                ],
+                correct: 2, // Index 2 -> C
+                explain: "Luật Phổ biến, giáo dục pháp luật năm 2012 quy định ngày 9/11 hàng năm là Ngày Pháp luật Việt Nam."
+            },
+            {
+                section: "Phần I. Tìm hiểu về Ngày Pháp luật Việt Nam",
+                question: "Câu 5. Ngày Pháp luật Việt Nam được tổ chức lần đầu tiên vào năm nào?",
+                options: [
+                    "A. 2010",
+                    "B. 2011",
+                    "C. 2012",
+                    "D. 2013"
+                ],
+                correct: 3, // Index 3 -> D
+                explain: "Lễ công bố Ngày Pháp luật Việt Nam được tổ chức lần đầu tiên trên phạm vi toàn quốc vào năm 2013."
+            },
+            {
+                section: "Phần I. Tìm hiểu về Ngày Pháp luật Việt Nam",
+                question: "Câu 6. Hiến pháp là gì?",
+                options: [
+                    "A. Một văn bản quy định nội quy trường học.",
+                    "B. Luật cơ bản của Nhà nước, có hiệu lực pháp lý cao nhất.",
+                    "C. Một văn bản hướng dẫn hoạt động kinh doanh.",
+                    "D. Một quy định riêng của từng địa phương."
+                ],
+                correct: 1, // Index 1 -> B
+                explain: "Hiến pháp là luật cơ bản của Quốc gia, có hiệu lực pháp lý cao nhất trong hệ thống pháp luật."
+            },
+            {
+                section: "Phần I. Tìm hiểu về Ngày Pháp luật Việt Nam",
+                question: "Câu 7. Văn bản nào có hiệu lực pháp lý cao nhất trong hệ thống pháp luật Việt Nam?",
+                options: [
+                    "A. Bộ luật Dân sự.",
+                    "B. Luật Giáo dục.",
+                    "C. Hiến pháp.",
+                    "D. Bộ luật Hình sự."
+                ],
+                correct: 2, // Index 2 -> C
+                explain: "Hiến pháp đứng ở vị trí tối cao trong hệ thống văn bản quy phạm pháp luật."
+            },
+            {
+                section: "Phần I. Tìm hiểu về Ngày Pháp luật Việt Nam",
+                question: "Câu 8. Theo Hiến pháp Việt Nam, mọi công dân đều có quyền nào sau đây?",
+                options: [
+                    "A. Được đối xử bình đẳng trước pháp luật.",
+                    "B. Được làm bất cứ điều gì mình muốn.",
+                    "C. Không phải thực hiện nghĩa vụ công dân.",
+                    "D. Được miễn mọi trách nhiệm pháp lý."
+                ],
+                correct: 0, // Index 0 -> A
+                explain: "Mọi người đều bình đẳng trước pháp luật, không ai bị phân biệt đối xử trong đời sống xã hội và pháp lý."
+            },
+            {
+                section: "Phần I. Tìm hiểu về Ngày Pháp luật Việt Nam",
+                question: "Câu 9. Công dân Việt Nam đủ bao nhiêu tuổi trở lên có quyền bầu cử đại biểu Quốc hội và đại biểu Hội đồng nhân dân?",
+                options: [
+                    "A. 16 tuổi.",
+                    "B. 17 tuổi.",
+                    "C. 18 tuổi.",
+                    "D. 21 tuổi."
+                ],
+                correct: 2, // Index 2 -> C
+                explain: "Theo Hiến pháp, công dân đủ 18 tuổi trở lên có quyền bầu cử."
+            },
+            {
+                section: "Phần I. Tìm hiểu về Ngày Pháp luật Việt Nam",
+                question: "Câu 10. Học tập là quyền và nghĩa vụ của ai?",
+                options: [
+                    "A. Chỉ trẻ em.",
+                    "B. Chỉ học sinh, sinh viên.",
+                    "C. Chỉ người trưởng thành.",
+                    "D. Mọi công dân."
+                ],
+                correct: 3, // Index 3 -> D
+                explain: "Học tập là quyền và nghĩa vụ của mọi công dân Việt Nam."
+            },
+
+            // Phần II
+            {
+                section: "Phần II. Pháp luật với học sinh và đời sống",
+                question: "Câu 11. Hành vi nào sau đây thể hiện sự tôn trọng pháp luật?",
+                options: [
+                    "A. Vượt đèn đỏ khi đường vắng.",
+                    "B. Chấp hành đúng quy định giao thông.",
+                    "C. Xả rác nơi công cộng.",
+                    "D. Cố tình gây mất trật tự."
+                ],
+                correct: 1, // Index 1 -> B
+                explain: "Chấp hành Luật Giao thông là biểu hiện cụ thể của việc tôn trọng pháp luật."
+            },
+            {
+                section: "Phần II. Pháp luật với học sinh và đời sống",
+                question: "Câu 12. Khi đèn tín hiệu giao thông chuyển sang màu đỏ, người tham gia giao thông phải làm gì?",
+                options: [
+                    "A. Tăng tốc đi nhanh qua.",
+                    "B. Bấm còi để xin đường.",
+                    "C. Dừng lại trước vạch dừng.",
+                    "D. Đi tiếp nếu đường vắng."
+                ],
+                correct: 2, // Index 2 -> C
+                explain: "Đèn đỏ tín hiệu yêu cầu người điều khiển phương tiện phải dừng lại trước vạch dừng."
+            },
+            {
+                section: "Phần II. Pháp luật với học sinh và đời sống",
+                question: "Câu 13. Người điều khiển và người ngồi trên xe mô tô, xe gắn máy phải thực hiện quy định nào sau đây?",
+                options: [
+                    "A. Đội mũ bảo hiểm và cài quai đúng quy cách.",
+                    "B. Chỉ người điều khiển mới cần đội mũ bảo hiểm.",
+                    "C. Không cần đội mũ bảo hiểm khi đi gần.",
+                    "D. Chỉ đội mũ bảo hiểm khi đi đường xa."
+                ],
+                correct: 0, // Index 0 -> A
+                explain: "Cả người điều khiển lẫn người ngồi sau xe mô tô, gắn máy đều phải đội mũ bảo hiểm chuẩn quy cách."
+            },
+            {
+                section: "Phần II. Pháp luật với học sinh và đời sống",
+                question: "Câu 14. Khi chứng kiến hành vi bạo lực học đường, học sinh nên làm gì?",
+                options: [
+                    "A. Cổ vũ và quay video đăng mạng.",
+                    "B. Tham gia đánh nhau.",
+                    "C. Im lặng và bỏ đi trong mọi trường hợp.",
+                    "D. Báo cho thầy cô, nhà trường hoặc người lớn đáng tin cậy."
+                ],
+                correct: 3, // Index 3 -> D
+                explain: "Cần báo ngay cho giáo viên, nhà trường hoặc công an để ngăn chặn bạo lực học đường kịp thời."
+            },
+            {
+                section: "Phần II. Pháp luật với học sinh và đời sống",
+                question: "Câu 15. Hành vi nào sau đây là vi phạm quy tắc ứng xử trên mạng xã hội?",
+                options: [
+                    "A. Chia sẻ kiến thức bổ ích.",
+                    "B. Bình luận lịch sự.",
+                    "C. Đăng tải thông tin sai sự thật, xúc phạm người khác.",
+                    "D. Trao đổi bài học với bạn bè."
+                ],
+                correct: 2, // Index 2 -> C
+                explain: "Đưa thông tin sai sự thật hoặc xúc phạm danh dự người khác trên mạng là vi phạm Luật An ninh mạng."
+            },
+            {
+                section: "Phần II. Pháp luật với học sinh và đời sống",
+                question: "Câu 16. Khi nhặt được tài sản của người khác đánh rơi, em nên làm gì?",
+                options: [
+                    "A. Giữ lại để sử dụng.",
+                    "B. Tìm cách trả lại cho người mất hoặc giao nộp cho cơ quan có trách nhiệm.",
+                    "C. Đem bán lấy tiền.",
+                    "D. Vứt bỏ tài sản đó."
+                ],
+                correct: 1, // Index 1 -> B
+                explain: "Trả lại tài sản nhặt được là nghĩa vụ đạo đức và quy định của Bộ luật Dân sự."
+            },
+            {
+                section: "Phần II. Pháp luật với học sinh và đời sống",
+                question: "Câu 17. Hành vi nào sau đây thể hiện trách nhiệm bảo vệ môi trường?",
+                options: [
+                    "A. Vứt rác xuống sông.",
+                    "B. Đốt rác bừa bãi.",
+                    "C. Chặt phá cây xanh.",
+                    "D. Phân loại rác và bỏ rác đúng nơi quy định."
+                ],
+                correct: 3, // Index 3 -> D
+                explain: "Phân loại và bỏ rác đúng quy định giúp giữ gìn vệ sinh và tuân thủ Luật Bảo vệ Môi trường."
+            },
+            {
+                section: "Phần II. Pháp luật với học sinh và đời sống",
+                question: "Câu 18. Khi tham gia giao thông bằng xe đạp điện, học sinh cần thực hiện điều gì?",
+                options: [
+                    "A. Đi đúng phần đường, làn đường và chấp hành tín hiệu giao thông.",
+                    "B. Đi ngược chiều nếu đường vắng.",
+                    "C. Dàn hàng ngang nhiều người.",
+                    "D. Vừa điều khiển xe vừa sử dụng điện thoại."
+                ],
+                correct: 0, // Index 0 -> A
+                explain: "Luôn đi đúng làn đường, chấp hành tín hiệu giao thông để giữ an toàn cho mình và mọi người."
+            },
+            {
+                section: "Phần II. Pháp luật với học sinh và đời sống",
+                question: "Câu 19. Theo quy định của pháp luật, công dân có nghĩa vụ gì?",
+                options: [
+                    "A. Chỉ tuân thủ pháp luật khi có người giám sát.",
+                    "B. Chỉ thực hiện pháp luật khi bản thân có lợi.",
+                    "C. Tuân theo Hiến pháp và pháp luật.",
+                    "D. Có thể tự ý vi phạm nếu không ai biết."
+                ],
+                correct: 2, // Index 2 -> C
+                explain: "Mọi công dân có nghĩa vụ nghiêm chỉnh tuân theo Hiến pháp và pháp luật."
+            },
+            {
+                section: "Phần II. Pháp luật với học sinh và đời sống",
+                question: "Câu 20. Câu khẩu hiệu nào thể hiện đúng tinh thần Ngày Pháp luật Việt Nam?",
+                options: [
+                    "A. Học tập tốt, lao động tốt.",
+                    "B. Sống và làm việc theo Hiến pháp và pháp luật.",
+                    "C. Đoàn kết là sức mạnh.",
+                    "D. Tất cả vì vui chơi và giải trí."
+                ],
+                correct: 1, // Index 1 -> B
+                explain: "'Sống và làm việc theo Hiến pháp và pháp luật' chính là khẩu hiệu xuyên suốt của Ngày Pháp luật Việt Nam."
+            }
+        ];
+
+        // Game State Variables
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = []; // Store index of answer selected per question
+        let timer = null;
+        let timeLeft = 20;
+        let soundEnabled = true;
+
+        // Elements DOM
+        const startScreen = document.getElementById('startScreen');
+        const gameScreen = document.getElementById('gameScreen');
+        const resultScreen = document.getElementById('resultScreen');
+
+        const currentQuestionNumEl = document.getElementById('currentQuestionNum');
+        const timerDisplay = document.getElementById('timerDisplay');
+        const currentScoreDisplay = document.getElementById('currentScoreDisplay');
+        const progressBar = document.getElementById('progressBar');
+        const sectionTag = document.getElementById('sectionTag');
+        const questionText = document.getElementById('questionText');
+        const optionsContainer = document.getElementById('optionsContainer');
+        const feedbackContainer = document.getElementById('feedbackContainer');
+        const feedbackBox = document.getElementById('feedbackBox');
+        const feedbackIcon = document.getElementById('feedbackIcon');
+        const feedbackText = document.getElementById('feedbackText');
+        const nextBtn = document.getElementById('nextBtn');
+
+        // Sound Toggle
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            const icon = document.getElementById('soundIcon');
+            const status = document.getElementById('soundStatus');
+            if (soundEnabled) {
+                icon.className = "fa-solid fa-volume-high";
+                status.innerText = "Âm thanh";
+            } else {
+                icon.className = "fa-solid fa-volume-xmark";
+                status.innerText = "Tắt tiếng";
+            }
+        }
+
+        function playSound(type) {
+            if (!soundEnabled) return;
+            if (type === 'correct') soundFX.playCorrect();
+            if (type === 'incorrect') soundFX.playIncorrect();
+            if (type === 'click') soundFX.playClick();
+            if (type === 'finish') soundFX.playFinish();
+        }
+
+        // Start / Reset Game
+        function startGame() {
+            playSound('click');
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = new Array(quizData.length).fill(null);
+            
+            startScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            gameScreen.classList.remove('hidden');
+            gameScreen.classList.add('flex');
+
+            loadQuestion();
+        }
+
+        // Load Question Logic
+        function loadQuestion() {
+            clearInterval(timer);
+            timeLeft = 20;
+            timerDisplay.innerText = `${timeLeft}s`;
+            
+            const q = quizData[currentQuestionIndex];
+            
+            // UI Updates
+            currentQuestionNumEl.innerText = currentQuestionIndex + 1;
+            currentScoreDisplay.innerText = score;
+            sectionTag.innerText = q.section;
+            questionText.innerText = q.question;
+
+            // Progress Bar
+            const progressPercent = ((currentQuestionIndex) / quizData.length) * 100;
+            progressBar.style.width = `${progressPercent}%`;
+
+            // Reset Feedback & Buttons
+            feedbackContainer.classList.add('hidden');
+            nextBtn.classList.add('hidden');
+
+            // Render Options
+            optionsContainer.innerHTML = '';
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `w-full text-left p-4 sm:p-5 rounded-2xl border-2 border-slate-200 bg-white hover:border-lawblue hover:bg-blue-50/50 transition-all duration-200 flex items-center justify-between group font-medium text-sm sm:text-base text-slate-700 shadow-sm`;
+                btn.onclick = () => selectAnswer(idx);
+                
+                btn.innerHTML = `
+                    <span>${opt}</span>
+                    <i class="fa-regular fa-circle text-slate-300 group-hover:text-lawblue text-lg"></i>
+                `;
+                optionsContainer.appendChild(btn);
+            });
+
+            // Start Countdown Timer
+            timer = setInterval(() => {
+                timeLeft--;
+                timerDisplay.innerText = `${timeLeft}s`;
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    selectAnswer(-1); // Time's up -> Timeout/wrong
+                }
+            }, 1000);
+        }
+
+        // Handle Answer Selection
+        function selectAnswer(selectedIndex) {
+            clearInterval(timer);
+            userAnswers[currentQuestionIndex] = selectedIndex;
+
+            const q = quizData[currentQuestionIndex];
+            const isCorrect = selectedIndex === q.correct;
+            const buttons = optionsContainer.querySelectorAll('button');
+
+            // Disable all buttons
+            buttons.forEach(btn => btn.disabled = true);
+
+            if (isCorrect) {
+                score += 5; // 20 questions * 5 = 100 points
+                currentScoreDisplay.innerText = score;
+                playSound('correct');
+            } else {
+                playSound('incorrect');
+            }
+
+            // Style buttons based on correctness
+            buttons.forEach((btn, idx) => {
+                if (idx === q.correct) {
+                    btn.className = "w-full text-left p-4 sm:p-5 rounded-2xl border-2 border-emerald-500 bg-emerald-50 text-emerald-900 font-semibold flex items-center justify-between shadow-md";
+                    btn.querySelector('i').className = "fa-solid fa-circle-check text-emerald-600 text-xl";
+                } else if (idx === selectedIndex && !isCorrect) {
+                    btn.className = "w-full text-left p-4 sm:p-5 rounded-2xl border-2 border-red-500 bg-red-50 text-red-900 font-semibold flex items-center justify-between shadow-md";
+                    btn.querySelector('i').className = "fa-solid fa-circle-xmark text-red-600 text-xl";
+                } else {
+                    btn.className = "w-full text-left p-4 sm:p-5 rounded-2xl border border-slate-200 bg-slate-50 text-slate-400 opacity-60 flex items-center justify-between";
+                }
+            });
+
+            // Get correct option letter (A, B, C, D) cleanly
+            const optionLetters = ['A', 'B', 'C', 'D'];
+            const correctLetter = optionLetters[q.correct];
+
+            // Show Feedback Banner
+            feedbackContainer.classList.remove('hidden');
+            if (isCorrect) {
+                feedbackBox.className = "p-3 sm:p-4 rounded-xl bg-emerald-100 text-emerald-800 border border-emerald-200 flex items-center gap-3";
+                feedbackIcon.className = "fa-solid fa-face-smile text-emerald-600 text-xl";
+                feedbackText.innerHTML = `<strong>Chính xác!</strong> ${q.explain}`;
+            } else {
+                feedbackBox.className = "p-3 sm:p-4 rounded-xl bg-red-100 text-red-800 border border-red-200 flex items-center gap-3";
+                feedbackIcon.className = "fa-solid fa-triangle-exclamation text-red-600 text-xl";
+                feedbackText.innerHTML = `<strong>Rất tiếc!</strong> Đáp án đúng là <strong>${correctLetter}</strong>. ${q.explain}`;
+            }
+
+            // Show Next Button
+            nextBtn.classList.remove('hidden');
+        }
+
+        // Next Question or Show Results
+        function nextQuestion() {
+            playSound('click');
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        // Show Final Results Screen
+        function showResults() {
+            playSound('finish');
+            gameScreen.classList.add('hidden');
+            gameScreen.classList.remove('flex');
+            resultScreen.classList.remove('hidden');
+
+            const correctNum = score / 5;
+            const wrongNum = quizData.length - correctNum;
+            const accuracy = Math.round((correctNum / quizData.length) * 100);
+
+            document.getElementById('finalScore').innerText = score;
+            document.getElementById('correctCount').innerText = correctNum;
+            document.getElementById('wrongCount').innerText = wrongNum;
+            document.getElementById('accuracyPercentage').innerText = `${accuracy}%`;
+
+            // Rank evaluation
+            const rankBadge = document.getElementById('rankBadge');
+            const resultIcon = document.getElementById('resultIcon');
+
+            if (score >= 90) {
+                rankBadge.innerText = "Xếp loại: XUẤT SẮC 🏆";
+                rankBadge.className = "inline-block font-bold text-sm sm:text-base px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-800 mb-4 border border-emerald-300";
+                resultIcon.className = "fa-solid fa-trophy text-4xl sm:text-5xl text-vnyellow";
+            } else if (score >= 70) {
+                rankBadge.innerText = "Xếp loại: GIỎI 🌟";
+                rankBadge.className = "inline-block font-bold text-sm sm:text-base px-4 py-1.5 rounded-full bg-blue-100 text-blue-800 mb-4 border border-blue-300";
+                resultIcon.className = "fa-solid fa-award text-4xl sm:text-5xl text-blue-400";
+            } else if (score >= 50) {
+                rankBadge.innerText = "Xếp loại: KHÁ 👍";
+                rankBadge.className = "inline-block font-bold text-sm sm:text-base px-4 py-1.5 rounded-full bg-amber-100 text-amber-800 mb-4 border border-amber-300";
+                resultIcon.className = "fa-solid fa-thumbs-up text-4xl sm:text-5xl text-amber-400";
+            } else {
+                rankBadge.innerText = "Xếp loại: CẦN CỐ GẮNG 📖";
+                rankBadge.className = "inline-block font-bold text-sm sm:text-base px-4 py-1.5 rounded-full bg-red-100 text-red-800 mb-4 border border-red-300";
+                resultIcon.className = "fa-solid fa-book-open text-4xl sm:text-5xl text-red-400";
+            }
+        }
+
+        // Toggle Review Answers Modal
+        function toggleReviewModal(show) {
+            playSound('click');
+            const modal = document.getElementById('reviewModal');
+            if (show) {
+                renderReviewContent();
+                modal.classList.remove('hidden');
+            } else {
+                modal.classList.add('hidden');
+            }
+        }
+
+        // Render Answer List in Modal
+        function renderReviewContent() {
+            const container = document.getElementById('reviewContent');
+            container.innerHTML = '';
+
+            quizData.forEach((q, idx) => {
+                const userAns = userAnswers[idx];
+                const isCorrect = userAns === q.correct;
+                
+                const card = document.createElement('div');
+                card.className = `p-4 rounded-2xl border ${isCorrect ? 'border-emerald-200 bg-emerald-50/40' : 'border-red-200 bg-red-50/40'}`;
+                
+                let userChoiceText = userAns !== null && userAns !== -1 ? q.options[userAns] : "Chưa trả lời (Hết giờ)";
+                
+                card.innerHTML = `
+                    <div class="flex items-start justify-between gap-2 mb-2">
+                        <span class="font-bold text-sm text-slate-800">${q.question}</span>
+                        <span class="text-xs px-2.5 py-1 rounded-full font-bold ${isCorrect ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}">
+                            ${isCorrect ? 'Đúng (+5đ)' : 'Sai (0đ)'}
+                        </span>
+                    </div>
+                    <div class="text-xs sm:text-sm space-y-1 mb-2">
+                        <div class="${isCorrect ? 'text-emerald-700' : 'text-red-600'}">
+                            <strong>Lựa chọn của bạn:</strong> ${userChoiceText}
+                        </div>
+                        <div class="text-emerald-800 font-medium">
+                            <strong>Đáp án đúng:</strong> ${q.options[q.correct]}
+                        </div>
+                    </div>
+                    <div class="text-xs text-slate-500 bg-white/70 p-2.5 rounded-xl border border-slate-200">
+                        <i class="fa-solid fa-circle-info text-lawblue mr-1"></i> ${q.explain}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+    </script>
+</body>
+</html>
